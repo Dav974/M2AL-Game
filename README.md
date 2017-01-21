@@ -1,1 +1,1 @@
-# Projet SSBA (Super Smach Bros Al)
+# Projet SSBA (Super Smash Bros Al)
