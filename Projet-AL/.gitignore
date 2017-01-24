@@ -1,0 +1,9 @@
+# ne pas ignorer le .gitignore
+!.gitignore
+
+# ignorer les répertoires et les fichiers compilés (.class) du répertoire bin
+bin/**/*
+
+.project
+.settings
+.buildpath
