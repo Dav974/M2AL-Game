@@ -25,7 +25,7 @@ public class Link extends GameMovable implements Drawable, GameEntity,
 	protected UnitSimple link;
 	
 	public Link(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/pac1.gif",
+		spriteManager = new SpriteManagerDefaultImpl("images/pacgum.gif",
 				defaultCanvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes(
 				//

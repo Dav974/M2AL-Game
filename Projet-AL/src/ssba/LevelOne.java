@@ -22,8 +22,9 @@ import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
 import pacman.rule.PacmanOverlapRules;
+
 import soldier.core.Unit;
-import ssba.entity.Pikachu;
+import ssba.moves_rules.MoveStrategyKeyboard2;
 
 
 public class LevelOne extends GameLevelDefaultImpl {
@@ -109,31 +110,38 @@ public class LevelOne extends GameLevelDefaultImpl {
 		universe.addGameEntity(new TeleportPairOfPoints(new Point(27 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
 				2 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
 		
-		
-		// Pacman definition and inclusion in the universe
-		Pikachu myPac = new Pikachu(canvas);
+		// Pikachu definition and inclusion in the universe
+//		Pikachu myPac = new Pikachu(canvas);
 //		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
 //		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
 //		pacDriver.setStrategy(keyStr);
 //		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
 //		canvas.addKeyListener(keyStr);
 //		myPac.setDriver(pacDriver);
-		myPac.setPosition(new Point(6 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-		universe.addGameEntity(myPac);
+//		myPac.setPosition(new Point(6 * SPRITE_SIZE, 10 * SPRITE_SIZE));
+//		universe.addGameEntity(myPac);
 
-		// fabriquer les n MGEM : entités/unités movable (n=1)
-		// relier le control keys (GameMovableDriver-MoveStrategyKeyboard) à 1 unité
-		int i = 0;
+		int i = 1; // max i = 3
+		// make n MGEM : movable entities/units  (n=1)
+		// link a control keys (GameMovableDriver-MoveStrategyKeyboard) to units
 		for (Unit t : teamsPlaying) {
 			GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
-			MoveStrategyKeyboard moveStr = new MoveStrategyKeyboard();
+			if (i == 1){
+				MoveStrategyKeyboard moveStr = new MoveStrategyKeyboard();
+				driver.setStrategy(moveStr);
+				canvas.addKeyListener(moveStr);
+			}
+			else if (i == 1){
+				MoveStrategyKeyboard2 moveStr = new MoveStrategyKeyboard2();
+				driver.setStrategy(moveStr);
+				canvas.addKeyListener(moveStr);
+			}
+			 
 			MyGameEntityMovable mgem = new MyGameEntityMovable(canvas, t);
-			driver.setStrategy(moveStr);
-			canvas.addKeyListener(moveStr);
 			mgem.setDriver(driver);
 			mgem.setPosition(new Point((10+i) * SPRITE_SIZE, 10 * SPRITE_SIZE));
 			mgems.add(mgem);
-			i+=2; // TODO retirer le magic number
+			i+=1; // TODO throw out magic number
 		}
 		
 		// inclusion of all the entities in the universe
@@ -153,5 +161,4 @@ public class LevelOne extends GameLevelDefaultImpl {
 		canvas = g.getCanvas();	
 		teamsPlaying = groupesDeJeu;
 	}
-
 }
