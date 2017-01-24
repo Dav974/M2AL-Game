@@ -2,6 +2,7 @@ package ssba;
 
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
+import gameframework.core.GameDefaultImpl;
 import gameframework.core.GameLevelDefaultImpl;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverseDefaultImpl;
@@ -14,20 +15,23 @@ import gameframework.moves_rules.OverlapProcessorDefaultImpl;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import pacman.entity.Jail;
-import pacman.entity.Pacgum;
-import pacman.entity.Pacman;
 import pacman.entity.SuperPacgum;
 import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
 import pacman.rule.PacmanOverlapRules;
+import soldier.core.Unit;
 import ssba.entity.Link;
 import ssba.entity.Pikachu;
 
 public class LevelOne extends GameLevelDefaultImpl {
 	Canvas canvas;
+	//ArrayList<MyGameEntityMovable> teamsPlaying;
+	ArrayList<Unit> teamsPlaying;
+	ArrayList<MyGameEntityMovable> mgems = new ArrayList<MyGameEntityMovable>();
 
 	// 0 : Pacgums; 1 : Walls; 2 : SuperPacgums; 3 : Doors; 4 : Jail; 5 : empty
 	// Note: teleportation points are not indicated since they are defined by
@@ -134,11 +138,38 @@ public class LevelOne extends GameLevelDefaultImpl {
 		myLink.setPosition(new Point(18 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(myLink);
 
+		// fabriquer les MGEM
+		for (Unit t : teamsPlaying) {
+			GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
+			MoveStrategyKeyboard moveStr = new MoveStrategyKeyboard();
+			MyGameEntityMovable mgem = new MyGameEntityMovable(canvas, t);
+			canvas.addKeyListener(moveStr);
+			System.out.println("add");
+
+			mgem.setDriver(driver);
+			System.out.println("add1");
+			mgem.setPosition(new Point(10 * SPRITE_SIZE, 10 * SPRITE_SIZE));
+			System.out.println("add2");
+			mgems.add(mgem);
+			System.out.println("add3");
+		}
+		
+		for (MyGameEntityMovable m : mgems){
+			System.out.println("add4");
+			universe.addGameEntity(m);
+		}
+
 	}
 
 	public LevelOne(Game g) {
 		super(g);
 		canvas = g.getCanvas();
+	}
+
+	public LevelOne(GameDefaultImpl g, ArrayList<Unit> groupesDeJeu) {
+		super(g);
+		canvas = g.getCanvas();	
+		teamsPlaying = groupesDeJeu;
 	}
 
 }
