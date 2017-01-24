@@ -9,12 +9,10 @@ package ssba;
 
 import gameframework.core.GameDefaultImpl;
 import gameframework.core.GameLevel;
-import gameframework.core.GameMovableDriverDefaultImpl;
-import gameframework.moves_rules.MoveStrategyKeyboard;
 
 import java.util.ArrayList;
 
-import soldier.ages.AgeMiddleFactory;
+import soldier.ages.*;
 import soldier.core.AgeAbstractFactory;
 import soldier.core.Unit;
 import soldier.core.UnitGroup;
@@ -35,35 +33,28 @@ public class Ssba {
 	}
 
 	public static void main(String[] args) {
-		// creer 1 Factory (dont le thème est choisi par le user)
-				AgeAbstractFactory age1 = new AgeMiddleFactory();
-		
-		// creer n team (UnitGroup) par la facto (nb de joueurs) : 1
-				Unit team1 = createTeam(age1, "Team1::"); 
-		
-		// creer n uplet de control keys (GameMovableDriver-MoveStrategyKeyboard) : 1
-//				GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
-//				MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
-		
-		// relier le uplet à une team : MyGameEntityMovable implements Drawable, GameEntity, Overlappable = Unit var + GameMovable var
-		// non abstrait car pour l'instant on a tous la mm façon de marcher : oneStepMoveAddedBehavior ?
-//				MyGameEntityMovable pokemonS = new MyGameEntityMovable(team1, driver, keyStr);
-//				ArrayList<MyGameEntityMovable> groupesDeJeu = new ArrayList<>();
-//				groupesDeJeu.add(pokemonS);
-				
-				ArrayList<Unit> groupesDeJeu = new ArrayList<>();
-				groupesDeJeu.add(team1);
+		// creer 1 Factory (dont le thème sera choisi par le user)
+		AgeAbstractFactory age1 = new AgeMiddleFactory();
+		AgeAbstractFactory age2 = new AgeFutureFactory();
 
+		// creer n team (UnitGroup) par la facto (nb de joueurs) : 1
+		Unit team1 = createTeam(age1, "Team1::"); 
+		Unit team2 = createTeam(age2, "Team2::"); 
+
+
+		ArrayList<Unit> groupesDeJeu = new ArrayList<>();
+		groupesDeJeu.add(team1);
+		groupesDeJeu.add(team2);
+		
 		// préparer le jeu
-		GameDefaultImpl g = new GameDefaultImpl();		
+		GameDefaultImpl g = new GameDefaultImpl();
 		// préparer les niveaux
 		ArrayList<GameLevel> levels = new ArrayList<>();
-		
-		levels.add(new LevelOne(g, groupesDeJeu)); //param nb de ?(Unit, MGEM, ) à fabriquer
+
+		levels.add(new LevelOne(g, groupesDeJeu));
 		g.setLevels(levels);
-		
+
 		// lancer les niveaux dans l'ordre avec gestion de fin de niveau
 		g.start();
 	}
-
 }

@@ -9,11 +9,9 @@ import soldier.core.Unit;
 import gameframework.core.Drawable;
 import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
-import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManager;
 import gameframework.core.SpriteManagerDefaultImpl;
-import gameframework.moves_rules.MoveStrategyKeyboard;
 
 public class MyGameEntityMovable extends GameMovable implements Drawable, GameEntity, Overlappable {
 	Unit _team;
@@ -24,9 +22,6 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 	public void set_team(Unit _team) {
 		this._team = _team;
 	}
-
-//	GameMovableDriverDefaultImpl _driver;
-//	MoveStrategyKeyboard _moveStrategy;
 
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 16;
@@ -41,13 +36,9 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 	 * @param moveStrategy
 	 */
 	// TODO gestion des sprites
-	public MyGameEntityMovable(Canvas defaultCanvas, Unit team/*, GameMovableDriverDefaultImpl driver,
-			MoveStrategyKeyboard moveStrategy*/) {
+	public MyGameEntityMovable(Canvas defaultCanvas, Unit team) {
 		this._team = team;
-		
-//		this._driver = driver;
-//		this._moveStrategy = moveStrategy;
-		
+				
 		spriteManager = new SpriteManagerDefaultImpl("images/ghost.gif",
 				defaultCanvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes(
@@ -57,9 +48,7 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 				"invulnerable-right", "invulnerable-left", "invulnerable-up",
 				"invulnerable-down", //
 				"unused", "static", "unused");
-		System.out.println("mgemju");
 	}
-
 	
 	@Override
 	public Rectangle getBoundingBox() {
@@ -99,7 +88,8 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 		spriteManager.draw(g, getPosition());
 	}
 
-
+	// classe non abstraite pour l'instant 
+	// ils ont tous la mm façon de marcher
 	@Override
 	public void oneStepMoveAddedBehavior() {
 		// TODO Auto-generated method stub

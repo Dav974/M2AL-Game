@@ -12,8 +12,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import soldier.core.BehaviorSoldierStd;
-import soldier.core.UnitInfantry;
 import soldier.core.UnitSimple;
 import soldier.units.UnitCenturion;
 

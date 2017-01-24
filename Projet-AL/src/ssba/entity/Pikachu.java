@@ -34,7 +34,7 @@ public class Pikachu extends GameMovable implements Drawable, GameEntity,
 				"invulnerable-down", //
 				"unused", "static", "unused");
 		this.pokemon = new UnitCenturion("Bob");
-		System.out.println("pikachu créé");
+		System.out.println("Pikachu créé");
 	}
 
 
