@@ -124,14 +124,14 @@ public class LevelOne extends GameLevelDefaultImpl {
 		int i = 1; // max i = 3
 		// make n MGEM : movable entities/units  (n=1)
 		// link a control keys (GameMovableDriver-MoveStrategyKeyboard) to units
-		for (Unit t : teamsPlaying) {
+		for (Unit t : teamsPlaying){
 			GameMovableDriverDefaultImpl driver = new GameMovableDriverDefaultImpl();
-			if (i == 1){
+			if (i == 1 || i == 3){
 				MoveStrategyKeyboard moveStr = new MoveStrategyKeyboard();
 				driver.setStrategy(moveStr);
 				canvas.addKeyListener(moveStr);
 			}
-			else if (i == 1){
+			else if (i == 2){
 				MoveStrategyKeyboard2 moveStr = new MoveStrategyKeyboard2();
 				driver.setStrategy(moveStr);
 				canvas.addKeyListener(moveStr);

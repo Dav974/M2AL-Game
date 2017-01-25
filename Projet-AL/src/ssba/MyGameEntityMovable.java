@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import org.hamcrest.core.IsInstanceOf;
+
 import soldier.core.Unit;
 import gameframework.core.Drawable;
 import gameframework.core.GameEntity;
@@ -12,9 +14,12 @@ import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManager;
 import gameframework.core.SpriteManagerDefaultImpl;
+import ssba.entity.EntityItf;
+import ssba.entity.Luigi;
 
 public class MyGameEntityMovable extends GameMovable implements Drawable, GameEntity, Overlappable {
 	Unit _team;
+	
 	public Unit get_team() {
 		return _team;
 	}
@@ -29,7 +34,6 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 	protected boolean vulnerable = false;
 	protected int vulnerableTimer = 0;
 
-
 	/**
 	 * @param team
 	 * @param driver
@@ -39,15 +43,25 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 	public MyGameEntityMovable(Canvas defaultCanvas, Unit team) {
 		this._team = team;
 				
-		spriteManager = new SpriteManagerDefaultImpl("images/ghost.gif",
-				defaultCanvas, RENDERING_SIZE, 6);
+		if (team instanceof Luigi)
+			spriteManager = new SpriteManagerDefaultImpl(((EntityItf)_team).getPathSprite(), defaultCanvas, RENDERING_SIZE, 6);
+		else{
+//			System.out.println(team.toString());
+			spriteManager = new SpriteManagerDefaultImpl("images/ghost.gif",
+					defaultCanvas, RENDERING_SIZE, 6);
+		}
 		spriteManager.setTypes(
-				//
 				"right", "left", "up",
 				"down",//
 				"invulnerable-right", "invulnerable-left", "invulnerable-up",
 				"invulnerable-down", //
 				"unused", "static", "unused");
+		/*spriteManager.setTypes(
+				"intro", "stand", "walk", "run", "jump", // movements 
+				"down", 
+				"holdin", "kick"//grab+punch, // actions
+				"damage", //
+				 "win", "dying");*/
 	}
 	
 	@Override
