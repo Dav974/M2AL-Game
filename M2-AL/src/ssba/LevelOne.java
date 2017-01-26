@@ -21,7 +21,10 @@ import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
 import ssba.entity.Entity;
-import ssba.rule.EntityOverlapRules;
+import ssba.rule.entity.EntityMoveStrategyKeyboard;
+import ssba.rule.entity.EntityOverlapRules;
+import ssba.rules.ActionStrategyDefaultImpl;
+import ssba.rules.GameActionDriverDefaultImpl;
 
 public class LevelOne extends GameLevelDefaultImpl {
 	Canvas canvas;
@@ -35,7 +38,7 @@ public class LevelOne extends GameLevelDefaultImpl {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -114,23 +117,28 @@ public class LevelOne extends GameLevelDefaultImpl {
 //		myPikachu.attack();
 		
 		// Pacman definition and inclusion in the universe
-		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
-		pacDriver.setStrategy(keyStr);
-		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
+		GameMovableDriverDefaultImpl PikachuMoveDriver = new GameMovableDriverDefaultImpl();
+		GameActionDriverDefaultImpl PikachuActionDriver = new GameActionDriverDefaultImpl();
+		EntityMoveStrategyKeyboard keyStr = new EntityMoveStrategyKeyboard();
+		ActionStrategyDefaultImpl keyAct = new ActionStrategyDefaultImpl();
+		
+		PikachuMoveDriver.setStrategy(keyStr);
+		PikachuMoveDriver.setmoveBlockerChecker(moveBlockerChecker);
+		PikachuActionDriver.setStrategy(keyAct);
 		canvas.addKeyListener(keyStr);
-		Pikachu.setDriver(pacDriver);
+		canvas.addKeyListener(keyAct);
+		Pikachu.setDriver(PikachuMoveDriver);
 		Pikachu.setPosition(new Point(6 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(Pikachu);
 
 		// Pacman definition and inclusion in the universe
 
-		//		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
-//		MoveStrategyKeyboard linkKeyStr = new MoveStrategyKeyboard();
-//		linkDriver.setStrategy(linkKeyStr);
-//		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
-//		canvas.addKeyListener(linkKeyStr);
-//		myLink.setDriver(linkDriver);
+				GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
+		MoveStrategyKeyboard linkKeyStr = new MoveStrategyKeyboard();
+		linkDriver.setStrategy(linkKeyStr);
+		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
+		canvas.addKeyListener(linkKeyStr);
+		Link.setDriver(linkDriver);
 		Link.setPosition(new Point(18 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(Link);
 

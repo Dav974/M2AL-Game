@@ -27,9 +27,9 @@ import pacman.rule.GhostMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
 import pacman.rule.PacmanOverlapRules;
 import ssba.entity.Entity;
-import ssba.entity.Link;
-import ssba.entity.Pikachu;
-import ssba.entity_creation.EntityFactory;
+//import ssba.entity.Link;
+//import ssba.entity.Pikachu;
+//import ssba.entity_creation.EntityFactory;
 
 public class LevelOneTest extends GameLevelDefaultImpl {
 	Canvas canvas;
@@ -118,11 +118,11 @@ public class LevelOneTest extends GameLevelDefaultImpl {
 		
 		
 		// Entity creation with Factory
-		EntityFactory factory = new EntityFactory();
-		Pikachu myPikachu = factory.createPikachu(canvas);
-		Entity myLink = factory.createLink(canvas);
-		
-		myPikachu.attack();
+//		EntityFactory factory = new EntityFactory();
+//		Pikachu myPikachu = factory.createPikachu(canvas);
+//		Entity myLink = factory.createLink(canvas);
+//		
+//		myPikachu.attack();
 
 		
 		// Pacman definition and inclusion in the universe
@@ -141,9 +141,9 @@ public class LevelOneTest extends GameLevelDefaultImpl {
 			MoveStrategyRandom ranStr = new MoveStrategyRandom();
 			ghostDriv.setStrategy(ranStr);
 			ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myLink.setDriver(ghostDriv);
-			myLink.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
-			universe.addGameEntity(myLink);
+//			myLink.setDriver(ghostDriv);
+//			myLink.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
+//			universe.addGameEntity(myLink);
 		//	(overlapRules).addGhost(myLink);
 
 		

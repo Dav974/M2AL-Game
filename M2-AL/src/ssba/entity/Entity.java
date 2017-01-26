@@ -3,6 +3,9 @@ package ssba.entity;
 import gameframework.core.Drawable;
 import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
+import gameframework.core.GameMovableDriver;
+import gameframework.core.GameMovableDriverDefaultImpl;
+import gameframework.core.Movable;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManager;
 import gameframework.core.SpriteManagerDefaultImpl;
@@ -14,15 +17,19 @@ import java.awt.Rectangle;
 
 import soldier.core.UnitSimple;
 import soldier.units.UnitCenturion;
+import ssba.rules.GameActionDriver;
+import ssba.rules.GameActionDriverDefaultImpl;
 
 public class Entity extends GameMovable implements Drawable, GameEntity,
-Overlappable{
+Overlappable, Movable {
 	
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 16;
 	protected String spritePath;
-	UnitSimple unit;
-	
+	protected UnitSimple unit;
+	protected boolean isAttacking = false;
+	GameActionDriver actionDriver = new GameActionDriverDefaultImpl();
+
 	public Entity(Canvas defaultCanvas, String spritePath) {
 		this.spritePath = spritePath;
 		unit = new UnitCenturion("bob");
@@ -40,7 +47,7 @@ Overlappable{
 	public void draw(Graphics g) {
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
-
+		boolean atk = actionDriver.getAttack();
 		if (tmp.getX() == 1) {
 			spriteType += "right";
 		} else if (tmp.getX() == -1) {
@@ -49,9 +56,15 @@ Overlappable{
 			spriteType += "down";
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
-		} else {
+		}
+		else {
 			spriteType = "static";
 			spriteManager.reset();
+		}
+		
+		if (atk) {
+			System.out.println(this.attack());
+			actionDriver.finishAttack();
 		}
 		spriteManager.setType(spriteType);
 		spriteManager.draw(g, getPosition());
@@ -60,6 +73,14 @@ Overlappable{
 
 	public float attack(){
 		return unit.strike();
+	}
+	
+	public float getHealth(){
+		return unit.getHealthPoints();
+	}
+	
+	public void parry(float dmg){
+		unit.parry(dmg);
 	}
 	
 	public Rectangle getBoundingBox() {
