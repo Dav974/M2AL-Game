@@ -82,7 +82,6 @@ public class LevelOne extends GameLevelDefaultImpl {
 		
 		overlapRules.setUniverse(universe);
 
-		//gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		gameBoard = new GameUniverseViewSsbaImpl(canvas, universe);
 
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
