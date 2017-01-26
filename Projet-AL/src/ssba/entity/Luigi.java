@@ -5,7 +5,7 @@ import soldier.core.UnitInfantry;
 import soldier.core.Weapon;
 import soldier.units.BehaviorSoldierHealthBased;
 
-public class Luigi extends UnitInfantry implements EntityItf{
+public class Luigi extends UnitInfantry{
 	String pathSprite = "images/luigi_sprites.png";
 
 	public Luigi(String soldierName) {

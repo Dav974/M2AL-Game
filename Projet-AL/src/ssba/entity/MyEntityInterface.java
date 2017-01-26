@@ -1,5 +1,5 @@
 package ssba.entity;
 
-public interface EntityItf {
+public interface MyEntityInterface {
 	public String getPathSprite();
 }

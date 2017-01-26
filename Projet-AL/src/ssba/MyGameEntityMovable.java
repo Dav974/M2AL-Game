@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import soldier.core.Unit;
 import gameframework.core.Drawable;
 import gameframework.core.GameEntity;
@@ -14,8 +12,6 @@ import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManager;
 import gameframework.core.SpriteManagerDefaultImpl;
-import ssba.entity.EntityItf;
-import ssba.entity.Luigi;
 
 public class MyGameEntityMovable extends GameMovable implements Drawable, GameEntity, Overlappable {
 	Unit _team;
@@ -43,13 +39,13 @@ public class MyGameEntityMovable extends GameMovable implements Drawable, GameEn
 	public MyGameEntityMovable(Canvas defaultCanvas, Unit team) {
 		this._team = team;
 				
-		if (team instanceof Luigi)
-			spriteManager = new SpriteManagerDefaultImpl(((EntityItf)_team).getPathSprite(), defaultCanvas, RENDERING_SIZE, 6);
-		else{
+		//if (team instanceof Luigi)
+	//		spriteManager = new SpriteManagerDefaultImpl(((EntityItf)_team).getPathSprite(), defaultCanvas, RENDERING_SIZE, 6);
+		//else{
 //			System.out.println(team.toString());
 			spriteManager = new SpriteManagerDefaultImpl("images/ghost.gif",
 					defaultCanvas, RENDERING_SIZE, 6);
-		}
+		//}
 		spriteManager.setTypes(
 				"right", "left", "up",
 				"down",//
