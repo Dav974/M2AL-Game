@@ -87,6 +87,7 @@ public class LevelOne extends GameLevelDefaultImpl {
 
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
+		@SuppressWarnings("unused")
 		int totalNbGums = 0;
 		
 		// Filling up the universe with basic non movable entities and inclusion in the universe
