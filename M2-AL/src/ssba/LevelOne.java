@@ -133,7 +133,7 @@ public class LevelOne extends GameLevelDefaultImpl {
 
 		// Pacman definition and inclusion in the universe
 
-				GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
+		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
 		MoveStrategyKeyboard linkKeyStr = new MoveStrategyKeyboard();
 		linkDriver.setStrategy(linkKeyStr);
 		linkDriver.setmoveBlockerChecker(moveBlockerChecker);

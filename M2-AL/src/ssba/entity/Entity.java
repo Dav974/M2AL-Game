@@ -14,6 +14,7 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.ObjectInputStream.GetField;
 
 import soldier.core.UnitSimple;
 import soldier.units.UnitCenturion;
@@ -27,7 +28,7 @@ Overlappable, Movable {
 	public static final int RENDERING_SIZE = 16;
 	protected String spritePath;
 	protected UnitSimple unit;
-	protected boolean isAttacking = false;
+	public static boolean isAttacking = false;
 	GameActionDriver actionDriver = new GameActionDriverDefaultImpl();
 
 	public Entity(Canvas defaultCanvas, String spritePath) {
@@ -45,6 +46,7 @@ Overlappable, Movable {
 	}
 
 	public void draw(Graphics g) {
+		//setIsAttacking(false);
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
 		boolean atk = actionDriver.getAttack();
@@ -61,14 +63,23 @@ Overlappable, Movable {
 			spriteType = "static";
 			spriteManager.reset();
 		}
-		
 		if (atk) {
-			System.out.println(this.attack());
+			setIsAttacking(true);
+			System.out.println("entity : "+getIsAttacking());
 			actionDriver.finishAttack();
 		}
+
 		spriteManager.setType(spriteType);
 		spriteManager.draw(g, getPosition());
 
+	}
+	
+	public boolean getIsAttacking(){
+		return isAttacking;
+	}
+	
+	public void setIsAttacking(boolean b){
+		isAttacking = b;
 	}
 
 	public float attack(){
@@ -81,6 +92,10 @@ Overlappable, Movable {
 	
 	public void parry(float dmg){
 		unit.parry(dmg);
+	}
+	
+	public String getName(){
+		return unit.getName();
 	}
 	
 	public Rectangle getBoundingBox() {
