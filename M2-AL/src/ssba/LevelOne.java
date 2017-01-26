@@ -5,7 +5,6 @@ import gameframework.core.Game;
 import gameframework.core.GameLevelDefaultImpl;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverseDefaultImpl;
-import gameframework.core.GameUniverseViewPortDefaultImpl;
 import gameframework.moves_rules.MoveBlockerChecker;
 import gameframework.moves_rules.MoveBlockerCheckerDefaultImpl;
 import gameframework.moves_rules.MoveStrategyKeyboard;
@@ -20,6 +19,7 @@ import pacman.entity.SuperPacgum;
 import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
+import ssba.core.GameUniverseViewSsbaImpl;
 import ssba.entity.Entity;
 import ssba.rule.entity.EntityMoveStrategyKeyboard;
 import ssba.rule.entity.EntityOverlapRules;
@@ -79,9 +79,12 @@ public class LevelOne extends GameLevelDefaultImpl {
 		overlapProcessor.setOverlapRules(overlapRules);
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
+		
 		overlapRules.setUniverse(universe);
 
-		gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
+		//gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
+		gameBoard = new GameUniverseViewSsbaImpl(canvas, universe);
+
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
 		int totalNbGums = 0;
