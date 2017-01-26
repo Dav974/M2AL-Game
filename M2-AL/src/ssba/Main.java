@@ -12,8 +12,6 @@ import gameframework.core.GameLevel;
 
 import java.util.ArrayList;
 
-import pacman.GameLevelOne;
-
 
 public class Main {
 

@@ -18,6 +18,7 @@ public class GDI extends GameLevelDefaultImpl{
 
 	private Frame f;
 
+	@SuppressWarnings("unused")
 	private void createMenuBar() {
 		MenuBar menuBar = new MenuBar();
 		Menu file = new Menu("file");

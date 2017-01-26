@@ -16,9 +16,7 @@ import gameframework.moves_rules.OverlapProcessorDefaultImpl;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import pacman.entity.Ghost;
 import pacman.entity.Jail;
-import pacman.entity.Pacgum;
 import pacman.entity.Pacman;
 import pacman.entity.SuperPacgum;
 import pacman.entity.TeleportPairOfPoints;
@@ -26,10 +24,6 @@ import pacman.entity.Wall;
 import pacman.rule.GhostMovableDriver;
 import pacman.rule.PacmanMoveBlockers;
 import pacman.rule.PacmanOverlapRules;
-import ssba.entity.Entity;
-//import ssba.entity.Link;
-//import ssba.entity.Pikachu;
-//import ssba.entity_creation.EntityFactory;
 
 public class LevelOneTest extends GameLevelDefaultImpl {
 	Canvas canvas;
@@ -121,7 +115,6 @@ public class LevelOneTest extends GameLevelDefaultImpl {
 //		EntityFactory factory = new EntityFactory();
 //		Pikachu myPikachu = factory.createPikachu(canvas);
 //		Entity myLink = factory.createLink(canvas);
-//		
 //		myPikachu.attack();
 
 		

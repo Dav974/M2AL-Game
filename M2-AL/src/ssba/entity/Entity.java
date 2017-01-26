@@ -3,8 +3,6 @@ package ssba.entity;
 import gameframework.core.Drawable;
 import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
-import gameframework.core.GameMovableDriver;
-import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.Movable;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManager;
@@ -14,7 +12,6 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.ObjectInputStream.GetField;
 
 import soldier.core.UnitSimple;
 import soldier.units.UnitCenturion;

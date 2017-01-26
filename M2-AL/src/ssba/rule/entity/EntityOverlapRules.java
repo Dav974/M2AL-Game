@@ -1,9 +1,7 @@
 package ssba.rule.entity;
 
 import java.awt.Point;
-import java.util.Vector;
 
-import pacman.entity.Ghost;
 import pacman.entity.TeleportPairOfPoints;
 import ssba.entity.Entity;
 import gameframework.core.GameUniverse;

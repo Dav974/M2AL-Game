@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
-import ssba.entity.Entity;
 import gameframework.moves_rules.MoveStrategy;
 import gameframework.moves_rules.SpeedVector;
 import gameframework.moves_rules.SpeedVectorDefaultImpl;
