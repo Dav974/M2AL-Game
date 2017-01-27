@@ -14,7 +14,7 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 
 	protected Point entity1StartPos;
 	protected Point entity2StartPos;
-	
+
 	public EntityOverlapRules(Point entity1Pos, Point entity2Pos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,
 			ObservableValue<Boolean> endOfGame) {
@@ -37,7 +37,7 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 		}
 
 	}
-	
+
 	public void battle(Entity e1, Entity e2){
 		System.out.println(e1.getName()+" is attacking and make "+e1.attack()+" dmg");
 		e2.parry(e1.attack());
@@ -46,14 +46,14 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 		checkAlive(e2);
 		e1.setIsAttacking(false);
 	}
-	
+
 	public void checkAlive(Entity e){
 		if(e.getHealth() <= 0){
 			System.out.println(e.getName()+" is dead, RIP (noob)");
 			universe.removeGameEntity(e);
 		}
 	}
-	
+
 	public void overlapRule(Entity entity, TeleportPairOfPoints teleport) {
 		entity.setPosition(teleport.getDestination());
 	}

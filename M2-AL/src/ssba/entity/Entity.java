@@ -13,17 +13,12 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import observer_util.Observable;
-import observer_util.Observer;
 import soldier.core.UnitGroup;
-import soldier.core.UnitSimple;
-import soldier.units.UnitCenturion;
 import ssba.rules.GameActionDriver;
-import ssba.rules.GameActionDriverDefaultImpl;
 
 public class Entity extends GameMovable implements Drawable, GameEntity,
 Overlappable, Movable {
-	
+
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 16;
 	protected String spritePath;
@@ -46,7 +41,6 @@ Overlappable, Movable {
 	}
 	boolean atk;
 	public void draw(Graphics g) {
-		//setIsAttacking(false);
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
 		atk = gameActionDriver.getAttack();
@@ -73,11 +67,11 @@ Overlappable, Movable {
 		spriteManager.draw(g, getPosition());
 
 	}
-	
+
 	public boolean getIsAttacking(){
 		return isAttacking;
 	}
-	
+
 	public void setIsAttacking(boolean b){
 		isAttacking = b;
 	}
@@ -85,19 +79,19 @@ Overlappable, Movable {
 	public float attack(){
 		return unit.strike();
 	}
-	
+
 	public float getHealth(){
 		return unit.getHealthPoints();
 	}
-	
+
 	public void parry(float dmg){
 		unit.parry(dmg);
 	}
-	
+
 	public String getName(){
 		return unit.getName();
 	}
-	
+
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));
 	}
@@ -106,22 +100,6 @@ Overlappable, Movable {
 	@Override
 	public void oneStepMoveAddedBehavior() {
 		// TODO Auto-generated method stub
-		
-	}
 
-/*	@Override
-	public void addObserver(Observer<Entity> ob) {
-		this.addObserver(ob);
 	}
-
-	@Override
-	public void removeObserver(Observer<Entity> ob) {
-		if(this.getHealth() >= 0){
-			this.removeObserver(ob);
-		}
-	}
-
-	@Override
-	public void notifyObservers(Entity s) {
-	}*/
 }

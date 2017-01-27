@@ -6,10 +6,10 @@ import gameframework.core.BackgroundImage;
 import gameframework.core.GameUniverse;
 import gameframework.core.GameUniverseViewPortDefaultImpl;
 
-public class GameUniverseViewSsbaImpl extends GameUniverseViewPortDefaultImpl {
+public class GameUniverseViewSSBAImpl extends GameUniverseViewPortDefaultImpl {
 	protected BackgroundImage background;
 
-	public GameUniverseViewSsbaImpl(Canvas canvas, GameUniverse universe) {
+	public GameUniverseViewSSBAImpl(Canvas canvas, GameUniverse universe) {
 		super(canvas, universe);
 	}
 

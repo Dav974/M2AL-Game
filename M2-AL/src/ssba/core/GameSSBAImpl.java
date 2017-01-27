@@ -247,9 +247,9 @@ public class GameSSBAImpl implements Game, Observer {
 			for (ObservableValue<Integer> scoreObservable : score) {
 				if (o == scoreObservable) {
 					scoreValue
-							.setText(Integer
-									.toString(((ObservableValue<Integer>) o)
-											.getValue()));
+					.setText(Integer
+							.toString(((ObservableValue<Integer>) o)
+									.getValue()));
 				}
 			}
 		}

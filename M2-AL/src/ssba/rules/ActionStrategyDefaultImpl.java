@@ -10,14 +10,14 @@ public class ActionStrategyDefaultImpl extends KeyAdapter implements ActionStrat
 	public ActionStrategyDefaultImpl(char key){
 		keyAction = key;
 	}
-	
+
 	public boolean getIsAttacking() {
 		return atk;
 	}
 	public void setAttack() {
 		atk = false;
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent event){
 		if(block == true){
@@ -26,7 +26,7 @@ public class ActionStrategyDefaultImpl extends KeyAdapter implements ActionStrat
 				atk = true;
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent event) {
 		atk = false;

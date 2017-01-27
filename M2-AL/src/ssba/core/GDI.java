@@ -70,11 +70,11 @@ public class GDI extends GameLevelDefaultImpl{
 		System.out.println("pause command isn't ready");
 	}
 
-	
+
 	@Override
 	protected void init() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

@@ -2,7 +2,6 @@ package ssba;
 
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
-import gameframework.core.GameLevelDefaultImpl;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverseDefaultImpl;
 import gameframework.moves_rules.MoveBlockerChecker;
@@ -20,7 +19,7 @@ import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
 import ssba.core.GameLevelSSBAImpl;
-import ssba.core.GameUniverseViewSsbaImpl;
+import ssba.core.GameUniverseViewSSBAImpl;
 import ssba.entity.Entity;
 import ssba.rule.entity.EntityMoveStrategyKeyboard;
 import ssba.rule.entity.EntityOverlapRules;
@@ -34,7 +33,7 @@ public class LevelOne extends GameLevelSSBAImpl {
 	// Note: teleportation points are not indicated since they are defined by
 	// directed pairs of positions.
 	static int[][] tab = { 
-		    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -74,22 +73,22 @@ public class LevelOne extends GameLevelSSBAImpl {
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
-		
+
 		EntityOverlapRules overlapRules = new EntityOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
-		
+
 		overlapRules.setUniverse(universe);
 
-		gameBoard = new GameUniverseViewSsbaImpl(canvas, universe);
+		gameBoard = new GameUniverseViewSSBAImpl(canvas, universe);
 
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
 		@SuppressWarnings("unused")
 		int totalNbGums = 0;
-		
+
 		// Filling up the universe with basic non movable entities and inclusion in the universe
 		for (int i = 0; i < 31; ++i) {
 			for (int j = 0; j < 28; ++j) {
@@ -113,39 +112,37 @@ public class LevelOne extends GameLevelSSBAImpl {
 		// (east side to west side)
 		universe.addGameEntity(new TeleportPairOfPoints(new Point(27 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
 				2 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
-		
-		
-		
+
+
 		GameMovableDriverDefaultImpl moveDriver1 = new GameMovableDriverDefaultImpl();
 		GameActionDriverDefaultImpl actionDriver1 = new GameActionDriverDefaultImpl('e');
 		GameMovableDriverDefaultImpl moveDriver2 = new GameMovableDriverDefaultImpl();
 		GameActionDriverDefaultImpl actionDriver2 = new GameActionDriverDefaultImpl('i');
-		
-		
+
+
 		// Entity 1 definition and inclusion in the universe
 
 		EntityMoveStrategyKeyboard moveKey1 = new EntityMoveStrategyKeyboard();
 		ActionStrategyDefaultImpl actionKeyAct1 = actionDriver1.getActionStrategy();
-		
+
 		moveDriver1.setStrategy(moveKey1);
 		moveDriver1.setmoveBlockerChecker(moveBlockerChecker);
 		actionDriver1.setStrategy(actionKeyAct1);
 		canvas.addKeyListener(moveKey1);
 		canvas.addKeyListener(actionKeyAct1);
-		
 
 
 		// Entity 2 definition and inclusion in the universe
 
 		MoveStrategyKeyboard moveKeyStr2 = new MoveStrategyKeyboard();
 		ActionStrategyDefaultImpl actionKeyAct2 = actionDriver2.getActionStrategy();
-		
+
 		moveDriver2.setStrategy(moveKeyStr2);
 		moveDriver2.setmoveBlockerChecker(moveBlockerChecker);
 		//actionDriver2.setStrategy(actionKeyAct2);
 		canvas.addKeyListener(moveKeyStr2);
 		canvas.addKeyListener(actionKeyAct2);
-		
+
 		// Entities creations
 		Entity Pikachu = new Entity(canvas, "images/pac1.gif", "Bob", actionDriver1);
 		Entity Link = new Entity(canvas, "images/ghost.gif", "Mar", actionDriver2);
@@ -153,12 +150,10 @@ public class LevelOne extends GameLevelSSBAImpl {
 		Pikachu.setDriver(moveDriver1);
 		Pikachu.setPosition(new Point(6 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(Pikachu);
-		
+
 		Link.setDriver(moveDriver2);
 		Link.setPosition(new Point(18 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(Link);
-
-		
 	}
 
 	public LevelOne(Game g) {

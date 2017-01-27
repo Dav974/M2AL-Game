@@ -5,11 +5,11 @@ import soldier.core.UnitGroup;
 
 public class ArmyFactory {
 	public AgeAbstractFactory ageFact;
-	
+
 	public ArmyFactory(){
 		ageFact = null;
 	}
-	
+
 	public UnitGroup createArmy(String name, int infanteryNumber, int riderNumber){
 		UnitGroup units = new UnitGroup(name);
 		for (int i = 0; i < infanteryNumber; i++) {
