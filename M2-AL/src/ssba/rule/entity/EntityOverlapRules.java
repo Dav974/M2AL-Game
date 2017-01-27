@@ -25,18 +25,21 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 	public void setUniverse(GameUniverse universe) {
 		this.universe = universe;
 	}
-	//rÃ¨gle de retrait des pv si collision
+	
+	//règle de retrait des pv si collision
 	public void overlapRule(Entity e1, Entity e2) {
-		if(e1.getIsAttacking() == true){			
+		if(e1.getIsAttacking()){
+			e2.setIsDamaging(true);
 			System.out.println(e1.getName()+" is attacking and make "+e1.attack()+" dmg");
 			e2.parry(e1.attack());
 			System.out.println(e2.getName()+" have hp : "+e2.getHealth());
-			System.out.println();
 			checkAlive(e2);
 			e1.setIsAttacking(false);
-
+			e2.setIsDamaging(false);
 		}
-
+		else if(e2.getIsAttacking()){
+			overlapRule(e2, e1);
+		}
 	}
 	
 	public void checkAlive(Entity e){

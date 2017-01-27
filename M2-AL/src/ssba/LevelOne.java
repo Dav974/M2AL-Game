@@ -14,8 +14,6 @@ import gameframework.moves_rules.OverlapProcessorDefaultImpl;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import pacman.entity.Jail;
-import pacman.entity.SuperPacgum;
 import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
@@ -29,11 +27,10 @@ import ssba.rules.GameActionDriverDefaultImpl;
 public class LevelOne extends GameLevelDefaultImpl {
 	Canvas canvas;
 
-	// 0 : Pacgums; 1 : Walls; 2 : SuperPacgums; 3 : Doors; 4 : Jail; 5 : empty
+	// 0 : empty; 1 : Walls; 2 : Mario; 3 : Link; 4 : Jail;
 	// Note: teleportation points are not indicated since they are defined by
 	// directed pairs of positions.
 	static int[][] tab = { 
-		    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -44,7 +41,8 @@ public class LevelOne extends GameLevelDefaultImpl {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -54,8 +52,8 @@ public class LevelOne extends GameLevelDefaultImpl {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -65,7 +63,7 @@ public class LevelOne extends GameLevelDefaultImpl {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
-	public static final int SPRITE_SIZE = 16;
+	public static int SPRITE_SIZE_OBJECTS = 16;
 
 	@Override
 	protected void init() {
@@ -73,79 +71,72 @@ public class LevelOne extends GameLevelDefaultImpl {
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
+
+		int spriteSizeWidthMarioPng = 31;
+		int spriteSizeHeightMarioPng = 41;
+		int spriteSizeWidthLinkPng = 44;
+		int spriteSizeHeightLinkPng = 68;
 		
-		EntityOverlapRules overlapRules = new EntityOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
-				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
+		EntityOverlapRules overlapRules = new EntityOverlapRules(new Point(1 * spriteSizeWidthMarioPng, 1 * spriteSizeHeightMarioPng),
+				new Point(14 * spriteSizeWidthLinkPng, 15 * spriteSizeHeightLinkPng), life[0], score[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
-		
+
 		overlapRules.setUniverse(universe);
 
-		//gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		gameBoard = new GameUniverseViewSsbaImpl(canvas, universe);
 
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
-		@SuppressWarnings("unused")
-		int totalNbGums = 0;
+
+		// Entity creation with Factory
+		Entity mario = new Entity(canvas, "images/Mario.png", 44, 68);
+		Entity link = new Entity(canvas, "images/Link.png", 47, 68);
+
+		// Mario definition and inclusion in the universe
+		GameMovableDriverDefaultImpl marioMoveDriver = new GameMovableDriverDefaultImpl();
+		GameActionDriverDefaultImpl marioActionDriver = new GameActionDriverDefaultImpl();
+		EntityMoveStrategyKeyboard keyStr = new EntityMoveStrategyKeyboard();
+		ActionStrategyDefaultImpl keyAct = new ActionStrategyDefaultImpl();
+
+		marioMoveDriver.setStrategy(keyStr);
+		marioMoveDriver.setmoveBlockerChecker(moveBlockerChecker);
+		marioActionDriver.setStrategy(keyAct);
+		canvas.addKeyListener(keyStr);
+		canvas.addKeyListener(keyAct);
+		mario.setDriver(marioMoveDriver);
+		mario.setPosition(new Point(1 * spriteSizeWidthMarioPng, 1 * spriteSizeHeightMarioPng));
+
+		// Link definition and inclusion in the universe
+		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
+		MoveStrategyKeyboard linkKeyStr = new MoveStrategyKeyboard();
+		linkDriver.setStrategy(linkKeyStr);
+		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
+		canvas.addKeyListener(linkKeyStr);
+		link.setDriver(linkDriver);
+		link.setPosition(new Point(1 * spriteSizeWidthLinkPng, 1 * spriteSizeHeightLinkPng));
 		
 		// Filling up the universe with basic non movable entities and inclusion in the universe
 		for (int i = 0; i < 31; ++i) {
 			for (int j = 0; j < 28; ++j) {
 				if (tab[i][j] == 1) {
-					universe.addGameEntity(new Wall(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));
-				}
-				if (tab[i][j] == 2) {
-					universe.addGameEntity(new SuperPacgum(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-					totalNbGums++;
-				}
-				if (tab[i][j] == 4) {
-					universe.addGameEntity(new Jail(new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+					universe.addGameEntity(new Wall(canvas, j * SPRITE_SIZE_OBJECTS, i * SPRITE_SIZE_OBJECTS));
 				}
 			}
 		}
 
 		// Two teleport points definition and inclusion in the universe
 		// (west side to east side)
-		universe.addGameEntity(new TeleportPairOfPoints(new Point(0 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
-				25 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
+		universe.addGameEntity(new TeleportPairOfPoints(new Point(0, 10 * SPRITE_SIZE_OBJECTS), new Point(
+				25 * spriteSizeWidthLinkPng, 14 * spriteSizeHeightLinkPng))); // the biggest character
 		// (east side to west side)
-		universe.addGameEntity(new TeleportPairOfPoints(new Point(27 * SPRITE_SIZE, 14 * SPRITE_SIZE), new Point(
-				2 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
-		
-		
-		// Entity creation with Factory
-		Entity Pikachu = new Entity(canvas, "images/pac1.gif");
-		Entity Link = new Entity(canvas, "images/ghost.gif");
-//		myPikachu.attack();
-		
-		// Pacman definition and inclusion in the universe
-		GameMovableDriverDefaultImpl PikachuMoveDriver = new GameMovableDriverDefaultImpl();
-		GameActionDriverDefaultImpl PikachuActionDriver = new GameActionDriverDefaultImpl();
-		EntityMoveStrategyKeyboard keyStr = new EntityMoveStrategyKeyboard();
-		ActionStrategyDefaultImpl keyAct = new ActionStrategyDefaultImpl();
-		
-		PikachuMoveDriver.setStrategy(keyStr);
-		PikachuMoveDriver.setmoveBlockerChecker(moveBlockerChecker);
-		PikachuActionDriver.setStrategy(keyAct);
-		canvas.addKeyListener(keyStr);
-		canvas.addKeyListener(keyAct);
-		Pikachu.setDriver(PikachuMoveDriver);
-		Pikachu.setPosition(new Point(6 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-		universe.addGameEntity(Pikachu);
+		universe.addGameEntity(new TeleportPairOfPoints(new Point(27 * SPRITE_SIZE_OBJECTS, 14 * SPRITE_SIZE_OBJECTS), new Point(
+				2 * SPRITE_SIZE_OBJECTS, 14 * SPRITE_SIZE_OBJECTS)));
 
-		// Pacman definition and inclusion in the universe
-
-		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard linkKeyStr = new MoveStrategyKeyboard();
-		linkDriver.setStrategy(linkKeyStr);
-		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
-		canvas.addKeyListener(linkKeyStr);
-		Link.setDriver(linkDriver);
-		Link.setPosition(new Point(18 * SPRITE_SIZE, 10 * SPRITE_SIZE));
-		universe.addGameEntity(Link);
-
+		universe.addGameEntity(mario);
+		universe.addGameEntity(link);
+		
 		
 	}
 
