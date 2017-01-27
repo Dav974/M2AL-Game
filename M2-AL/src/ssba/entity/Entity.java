@@ -17,6 +17,7 @@ import observer_util.Observable;
 import observer_util.Observer;
 import soldier.core.UnitGroup;
 import soldier.core.UnitSimple;
+import soldier.core.UnitVisitor;
 import soldier.units.UnitCenturion;
 import ssba.rules.GameActionDriver;
 import ssba.rules.GameActionDriverDefaultImpl;
@@ -27,7 +28,7 @@ Overlappable, Movable {
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 16;
 	protected String spritePath;
-	protected UnitGroup unit;
+	protected UnitSimple unit;
 	protected boolean isAttacking = false;
 	protected GameActionDriver gameActionDriver;
 
@@ -43,7 +44,9 @@ Overlappable, Movable {
 				"invulnerable-right", "invulnerable-left", "invulnerable-up",
 				"invulnerable-down", //
 				"unused", "static", "unused");
+		this.unit = new UnitCenturion(unitName);
 	}
+	
 	boolean atk;
 	public void draw(Graphics g) {
 		//setIsAttacking(false);
