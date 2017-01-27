@@ -19,11 +19,20 @@ public class GameActionDriverDefaultImpl implements GameActionDriver{
 
 	@Override
 	public boolean getAttack() {
-		boolean attack = actionStrategy.getIsAttacking();
-		return attack;
+		return actionStrategy.getIsAttacking();
 	}
 
 	public void finishAttack(){
-		actionStrategy.setAttack();
+		actionStrategy.setAttack(false);
+	}
+
+	@Override
+	public boolean getParry() {
+		return actionStrategy.getIsDamaging();
+	}
+
+	@Override
+	public void finishParry() {
+		actionStrategy.setParry(false);		
 	}
 }

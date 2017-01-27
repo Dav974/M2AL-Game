@@ -25,17 +25,16 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 	public void setUniverse(GameUniverse universe) {
 		this.universe = universe;
 	}
-	//rÃ¨gle de retrait des pv si collision
+	
+	//règle de retrait des pv si collision
 	public void overlapRule(Entity e1, Entity e2) {
-		if(e2.getIsAttacking() == true){			
-			System.out.println("e2 : "+e2.getIsAttacking());
+		if(e2.getIsAttacking()){			
 			battle(e2,e1);
 		}
-		if(e1.getIsAttacking() == true){			
-			System.out.println("e1 : "+e1.getIsAttacking());
+		if(e1.getIsAttacking()){
+			e2.setIsDamaging(true);
 			battle(e1,e2);
 		}
-
 	}
 
 	public void battle(Entity e1, Entity e2){
@@ -45,11 +44,12 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 		System.out.println();
 		checkAlive(e2);
 		e1.setIsAttacking(false);
+		e2.setIsDamaging(false);
 	}
 
 	public void checkAlive(Entity e){
 		if(e.getHealth() <= 0){
-			System.out.println(e.getName()+" is dead, RIP (noob)");
+			System.out.println(e.getName()+" is dead, RIP !");
 			universe.removeGameEntity(e);
 		}
 	}
@@ -57,6 +57,4 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 	public void overlapRule(Entity entity, TeleportPairOfPoints teleport) {
 		entity.setPosition(teleport.getDestination());
 	}
-
-
 }
