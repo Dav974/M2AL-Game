@@ -7,16 +7,17 @@
  */
 package ssba;
 
-import gameframework.core.GameDefaultImpl;
 import gameframework.core.GameLevel;
 
 import java.util.ArrayList;
+
+import ssba.core.GameSSBAImpl;
 
 
 public class Main {
 
 	public static void main(String[] args) {
-		GameDefaultImpl g = new GameDefaultImpl();
+		GameSSBAImpl g = new GameSSBAImpl();
 		ArrayList<GameLevel> levels = new ArrayList<>();
 
 		levels.add(new LevelOne(g)); // only one level is available

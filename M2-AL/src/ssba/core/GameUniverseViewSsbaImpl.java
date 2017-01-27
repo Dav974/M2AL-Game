@@ -18,4 +18,3 @@ public class GameUniverseViewSsbaImpl extends GameUniverseViewPortDefaultImpl {
 		return "images/sky.png";
 	}
 }
-

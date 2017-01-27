@@ -27,16 +27,24 @@ public class EntityOverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 	//règle de retrait des pv si collision
 	public void overlapRule(Entity e1, Entity e2) {
+		if(e2.getIsAttacking() == true){			
+			System.out.println("e2 : "+e2.getIsAttacking());
+			battle(e2,e1);
+		}
 		if(e1.getIsAttacking() == true){			
-			System.out.println(e1.getName()+" is attacking and make "+e1.attack()+" dmg");
-			e2.parry(e1.attack());
-			System.out.println(e2.getName()+" have hp : "+e2.getHealth());
-			System.out.println();
-			checkAlive(e2);
-			e1.setIsAttacking(false);
-
+			System.out.println("e1 : "+e1.getIsAttacking());
+			battle(e1,e2);
 		}
 
+	}
+	
+	public void battle(Entity e1, Entity e2){
+		System.out.println(e1.getName()+" is attacking and make "+e1.attack()+" dmg");
+		e2.parry(e1.attack());
+		System.out.println(e2.getName()+" have hp : "+e2.getHealth());
+		System.out.println();
+		checkAlive(e2);
+		e1.setIsAttacking(false);
 	}
 	
 	public void checkAlive(Entity e){

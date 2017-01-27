@@ -19,6 +19,7 @@ import pacman.entity.SuperPacgum;
 import pacman.entity.TeleportPairOfPoints;
 import pacman.entity.Wall;
 import pacman.rule.PacmanMoveBlockers;
+import ssba.core.GameLevelSSBAImpl;
 import ssba.core.GameUniverseViewSsbaImpl;
 import ssba.entity.Entity;
 import ssba.rule.entity.EntityMoveStrategyKeyboard;
@@ -26,7 +27,7 @@ import ssba.rule.entity.EntityOverlapRules;
 import ssba.rules.ActionStrategyDefaultImpl;
 import ssba.rules.GameActionDriverDefaultImpl;
 
-public class LevelOne extends GameLevelDefaultImpl {
+public class LevelOne extends GameLevelSSBAImpl {
 	Canvas canvas;
 
 	// 0 : Pacgums; 1 : Walls; 2 : SuperPacgums; 3 : Doors; 4 : Jail; 5 : empty
@@ -114,34 +115,46 @@ public class LevelOne extends GameLevelDefaultImpl {
 				2 * SPRITE_SIZE, 14 * SPRITE_SIZE)));
 		
 		
-		// Entity creation with Factory
-		Entity Pikachu = new Entity(canvas, "images/pac1.gif");
-		Entity Link = new Entity(canvas, "images/ghost.gif");
-//		myPikachu.attack();
 		
-		// Pacman definition and inclusion in the universe
-		GameMovableDriverDefaultImpl PikachuMoveDriver = new GameMovableDriverDefaultImpl();
-		GameActionDriverDefaultImpl PikachuActionDriver = new GameActionDriverDefaultImpl();
-		EntityMoveStrategyKeyboard keyStr = new EntityMoveStrategyKeyboard();
-		ActionStrategyDefaultImpl keyAct = new ActionStrategyDefaultImpl();
+		GameMovableDriverDefaultImpl moveDriver1 = new GameMovableDriverDefaultImpl();
+		GameActionDriverDefaultImpl actionDriver1 = new GameActionDriverDefaultImpl('e');
+		GameMovableDriverDefaultImpl moveDriver2 = new GameMovableDriverDefaultImpl();
+		GameActionDriverDefaultImpl actionDriver2 = new GameActionDriverDefaultImpl('i');
 		
-		PikachuMoveDriver.setStrategy(keyStr);
-		PikachuMoveDriver.setmoveBlockerChecker(moveBlockerChecker);
-		PikachuActionDriver.setStrategy(keyAct);
-		canvas.addKeyListener(keyStr);
-		canvas.addKeyListener(keyAct);
-		Pikachu.setDriver(PikachuMoveDriver);
+		
+		// Entity 1 definition and inclusion in the universe
+
+		EntityMoveStrategyKeyboard moveKey1 = new EntityMoveStrategyKeyboard();
+		ActionStrategyDefaultImpl actionKeyAct1 = actionDriver1.getActionStrategy();
+		
+		moveDriver1.setStrategy(moveKey1);
+		moveDriver1.setmoveBlockerChecker(moveBlockerChecker);
+		actionDriver1.setStrategy(actionKeyAct1);
+		canvas.addKeyListener(moveKey1);
+		canvas.addKeyListener(actionKeyAct1);
+		
+
+
+		// Entity 2 definition and inclusion in the universe
+
+		MoveStrategyKeyboard moveKeyStr2 = new MoveStrategyKeyboard();
+		ActionStrategyDefaultImpl actionKeyAct2 = actionDriver2.getActionStrategy();
+		
+		moveDriver2.setStrategy(moveKeyStr2);
+		moveDriver2.setmoveBlockerChecker(moveBlockerChecker);
+		//actionDriver2.setStrategy(actionKeyAct2);
+		canvas.addKeyListener(moveKeyStr2);
+		canvas.addKeyListener(actionKeyAct2);
+		
+		// Entities creations
+		Entity Pikachu = new Entity(canvas, "images/pac1.gif", "Bob", actionDriver1);
+		Entity Link = new Entity(canvas, "images/ghost.gif", "Mar", actionDriver2);
+
+		Pikachu.setDriver(moveDriver1);
 		Pikachu.setPosition(new Point(6 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(Pikachu);
-
-		// Pacman definition and inclusion in the universe
-
-		GameMovableDriverDefaultImpl linkDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard linkKeyStr = new MoveStrategyKeyboard();
-		linkDriver.setStrategy(linkKeyStr);
-		linkDriver.setmoveBlockerChecker(moveBlockerChecker);
-		canvas.addKeyListener(linkKeyStr);
-		Link.setDriver(linkDriver);
+		
+		Link.setDriver(moveDriver2);
 		Link.setPosition(new Point(18 * SPRITE_SIZE, 10 * SPRITE_SIZE));
 		universe.addGameEntity(Link);
 

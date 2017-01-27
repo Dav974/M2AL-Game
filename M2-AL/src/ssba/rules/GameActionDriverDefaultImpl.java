@@ -3,16 +3,20 @@ package ssba.rules;
 
 public class GameActionDriverDefaultImpl implements GameActionDriver{
 	
-	protected ActionStrategy actionStrategy;
-
-	public GameActionDriverDefaultImpl() {
-		actionStrategy = new ActionStrategyDefaultImpl();
+	protected ActionStrategyDefaultImpl actionStrategy;
+	
+	public GameActionDriverDefaultImpl(char keyAction) {
+		actionStrategy = new ActionStrategyDefaultImpl(keyAction);
 	}
 
-	public void setStrategy(ActionStrategy strat) {
+	public void setStrategy(ActionStrategyDefaultImpl strat) {
 		actionStrategy = strat;
 	}
 
+	public ActionStrategyDefaultImpl getActionStrategy(){
+		return actionStrategy;
+	}
+	
 	@Override
 	public boolean getAttack() {
 		boolean attack = actionStrategy.getIsAttacking();

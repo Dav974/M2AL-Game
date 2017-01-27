@@ -13,6 +13,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import observer_util.Observable;
+import observer_util.Observer;
+import soldier.core.UnitGroup;
 import soldier.core.UnitSimple;
 import soldier.units.UnitCenturion;
 import ssba.rules.GameActionDriver;
@@ -24,13 +27,13 @@ Overlappable, Movable {
 	protected final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 16;
 	protected String spritePath;
-	protected UnitSimple unit;
-	public static boolean isAttacking = false;
-	GameActionDriver actionDriver = new GameActionDriverDefaultImpl();
+	protected UnitGroup unit;
+	protected boolean isAttacking = false;
+	protected GameActionDriver gameActionDriver;
 
-	public Entity(Canvas defaultCanvas, String spritePath) {
+	public Entity(Canvas defaultCanvas, String spritePath, String unitName, GameActionDriver gameActionDriver) {
 		this.spritePath = spritePath;
-		unit = new UnitCenturion("bob");
+		this.gameActionDriver = gameActionDriver;
 		spriteManager = new SpriteManagerDefaultImpl(spritePath,
 				defaultCanvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes(
@@ -41,12 +44,12 @@ Overlappable, Movable {
 				"invulnerable-down", //
 				"unused", "static", "unused");
 	}
-
+	boolean atk;
 	public void draw(Graphics g) {
 		//setIsAttacking(false);
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
-		boolean atk = actionDriver.getAttack();
+		atk = gameActionDriver.getAttack();
 		if (tmp.getX() == 1) {
 			spriteType += "right";
 		} else if (tmp.getX() == -1) {
@@ -61,9 +64,9 @@ Overlappable, Movable {
 			spriteManager.reset();
 		}
 		if (atk) {
+			System.out.println(this.getName()+" "+atk);
 			setIsAttacking(true);
-			System.out.println("entity : "+getIsAttacking());
-			actionDriver.finishAttack();
+			gameActionDriver.finishAttack();
 		}
 
 		spriteManager.setType(spriteType);
@@ -105,4 +108,20 @@ Overlappable, Movable {
 		// TODO Auto-generated method stub
 		
 	}
+
+/*	@Override
+	public void addObserver(Observer<Entity> ob) {
+		this.addObserver(ob);
+	}
+
+	@Override
+	public void removeObserver(Observer<Entity> ob) {
+		if(this.getHealth() >= 0){
+			this.removeObserver(ob);
+		}
+	}
+
+	@Override
+	public void notifyObservers(Entity s) {
+	}*/
 }

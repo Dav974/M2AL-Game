@@ -15,7 +15,6 @@ import gameframework.moves_rules.SpeedVectorDefaultImpl;
 public class EntityMoveStrategyKeyboard extends KeyAdapter implements MoveStrategy {
 	protected SpeedVector speedVector = new SpeedVectorDefaultImpl(new Point(0,
 			0));
-	protected boolean isAttacking = false;
 
 	public SpeedVector getSpeedVector() {
 		return speedVector;
@@ -36,9 +35,6 @@ public class EntityMoveStrategyKeyboard extends KeyAdapter implements MoveStrate
 			break;
 		case KeyEvent.VK_S: // bas
 			speedVector.setDirection(new Point(0, 1));
-			break;
-		case KeyEvent.VK_F:
-			isAttacking = true;
 			break;
 		}
 	}
